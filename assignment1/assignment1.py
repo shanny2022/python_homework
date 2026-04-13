@@ -1,4 +1,4 @@
-# Write your code here.# assignment1.py
+# assignment1.py
 
 # Task 1: Hello
 def hello():
