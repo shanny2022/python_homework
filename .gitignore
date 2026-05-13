@@ -1,8 +1,9 @@
-.idea
-+.DS_Store*
-.pytest_cache
-__pycache__/
-*.rb
-.vscode
-CACHEDIR.TAG
 .venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+.DS_Store
+__MACOSX/
+*.db
