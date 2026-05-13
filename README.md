@@ -1,45 +1,74 @@
-# Repository for Code the Dream Python 100 Homework
+# CaseFlow QA Tracker
 
-Before using this repository, you must install Python and must complete the rest of the setup as described in Python Essentials Lesson 1. Several steps are needed to configure VSCode, and you need to have installed the virtualenv pip package.
+CaseFlow QA Tracker is a Python-based internal issue tracking tool for small support and QA teams. It allows teams to create tickets, validate issue details, search records, import CSV data, and generate basic status reports.
 
-To use this repository:
+## Features
 
-1. Sign into your GitHub, and create a repository called python_homework.  It must be a public repository.  Do not create a .gitignore or a README.md.
-2. On your computer, clone the [https://github.com/Code-the-Dream-School/python_homework](https://github.com/Code-the-Dream-School/python_homework) repository. (Do not clone the repository you just created.)
-3. Change to the python_homework directory you just cloned.  Enter the following commands:
-```shell
-# if you use ssh authentication:
-git remote set-url origin git@github.com:your-github-id/python_homework.git
-# if you use token based authentication:
-git remote set-url origin https://github.com/your-github-id/python_homework
+- Create and update support tickets
+- Get tickets by ID
+- Assign tickets to team members
+- Validate ticket title, description, severity, and status
+- Search tickets by keyword, status, severity, or assignee
+- Import ticket records from CSV files
+- Skip invalid CSV rows during import
+- Generate summary reports for open and resolved issues
+- Run tests with pytest
 
-git remote add upstream https://github.com/Code-the-Dream-School/python_homework
-git push origin main
+## Tech Stack
+
+- Python
+- SQLite
+- Pytest
+- Pandas
+
+## Project Structure
+
+```text
+caseflow-qa-tracker/
+├── app/
+│   ├── __init__.py
+│   ├── database.py
+│   ├── models.py
+│   ├── validators.py
+│   ├── tickets.py
+│   ├── search.py
+│   ├── reports.py
+│   └── importers.py
+├── tests/
+│   ├── test_tickets.py
+│   ├── test_validation.py
+│   ├── test_search.py
+│   ├── test_reports.py
+│   └── test_importers.py
+├── data/
+│   └── sample_tickets.csv
+├── README.md
+├── requirements.txt
+├── pyproject.toml
+├── Dockerfile
+└── .gitignore
 ```
-4. While still within the python_homework directory, enter the following commands:
-```shell
+
+## Run Locally
+
+```bash
 python -m venv .venv
 source .venv/bin/activate
-code .
-```
-For some environments, you have to use the `python3` command.  For Windows users (you should use Git Bash in Windows), the command is different:
-```shell
-python -m venv .venv
-source .venv/Scripts/activate
-code .
-```
-4. Important: Open the VSCode command pallette (ctrl-shift P).  In the `Python: Select Interpreter` option, choose the one with `.venv`.  You can use the search box at the top to find it.  If you have any terminal sessions open, close them, and open a new one.  You will see `(.venv)` in your terminal prompt.
-5. From the VSCode terminal session, enter the command:
-```shell
 pip install -r requirements.txt
+pytest -vs
 ```
 
-Once this is done, you are ready to create your assignment1 git branch.  You create a separate branch for each lesson.  The assignment2 branch is created when the assignment1 branch is active, so that the lessons build on one another.  The files you create or modify for each assignment are described in the assignment itself.  They are to be created in the root of your python_homework repository, unless the lesson specifies otherwise.
+## Run with Docker
 
-In some cases, you will need to install additional pip packages to complete the lesson.
+```bash
+docker build -t caseflow-qa-tracker .
+docker run --rm caseflow-qa-tracker
+```
 
-When you have completed the lesson, add and commit your changes and push them to your GitHub.  Then create a pull request.
+## Possible Silver Tasks
 
-Once you have created the pull request, include a link for the pull request in your homework submission.  Your reviewer will be notified, and will approve your request or ask for rework.  **Do not merge your pull request until your reviewer has approved it.**
-
-Good luck with the class!
+- Fix search so it matches title and description, not just title
+- Add validation so severity only allows low, medium, high, and critical
+- Fix CSV import so invalid rows are skipped instead of crashing
+- Add report logic to count open, closed, and in-progress tickets correctly
+- Fix ticket status update so resolved tickets cannot be reopened without a reason
