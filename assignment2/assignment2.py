@@ -3,7 +3,7 @@ import os
 import traceback
 from datetime import datetime
 
-import custom_module
+import assignment2.custom_module as custom_module
 
 
 def _print_exception_and_exit(e):
