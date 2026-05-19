@@ -1,5 +1,0 @@
-title,description,severity,status,assignee,resolved_at
-Login form rejects valid users,Customers cannot sign in with valid credentials,high,open,Maya Chen,
-CSV export drops last column,Downloaded ticket exports are missing the final notes column,medium,in_progress,Iris Patel,
-Closed tickets show in open queue,Resolved records are still visible in the open ticket queue,critical,closed,Noor Ali,2026-01-03
-Bad,Too short,urgent,waiting,, 
