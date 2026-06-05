@@ -1,4 +1,4 @@
-import assignment1 as a1
+import assignment1.assignment1 as a1
 
 def test_hello():
     assert a1.hello() == "Hello!"
