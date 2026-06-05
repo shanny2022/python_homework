@@ -14,3 +14,16 @@ Notes:
 - Create a pull request from assignment11 into main.
 - Deploy dashboard.py on Streamlit Community Cloud.
 - Replace the placeholder lines above with the real PR and Streamlit URLs before submitting.
+<<<<<<< Updated upstream
+=======
+Pull request:
+https://github.com/shanny2022/python_homework/pull/23
+
+Streamlit dashboard:
+Run locally with: streamlit run assignment11/dashboard.py
+Deployment URL:
+To be added after the Streamlit app is deployed.
+
+Plotly wind chart:
+Open assignment11/wind.html after running: python assignment11/wind.py
+>>>>>>> Stashed changes
