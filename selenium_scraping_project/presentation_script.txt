@@ -1,0 +1,23 @@
+Hello everyone, my name is Shuntoria Reid, and today I am presenting my Selenium scraping final project.
+
+For this project, I built a web scraping and dashboard application using Python, Selenium, Pandas, Plotly, and Streamlit. The goal was to collect data from a website, clean the data, transform it into useful features, and then display it in an interactive dashboard.
+
+The website I used is Quotes to Scrape, specifically the JavaScript version of the site. This was a good choice because the content is loaded through JavaScript, so Selenium is appropriate for retrieving the data. In my scraper file, I used Selenium with Chrome to open the site, wait for the quote elements to load, collect quote text, author names, tags, tag counts, and the page number.
+
+I also handled common scraping challenges. For missing tags or missing authors, I used a safe text function so the program would not crash if an element was missing. I handled pagination by clicking the Next button until there were no more pages. I also used a set to track quote and author combinations so duplicate records would not be saved. To avoid unnecessary repeated requests, I added a short delay between page clicks.
+
+After scraping, I saved the raw data in two structured formats: a CSV file and a JSON file. This is important because it keeps the original scraped data available before cleaning.
+
+Next, I cleaned the data using Pandas. In my clean data file, I loaded the raw CSV, checked the data, filled missing values, cleaned extra whitespace, converted numeric columns like tag count and page number, removed empty quotes, and removed duplicate rows.
+
+I also created new extracted features. I created quote length, word count, a true or false field for whether a quote has multiple tags, and a quote length group that labels quotes as short, medium, or long. These features made the dashboard easier to analyze because they turned raw text into measurable categories.
+
+Now I will show the Streamlit dashboard. At the top, the dashboard has a title and description explaining what the project does. On the left side, there are filters for author, quote length group, and word count range. These filters allow users to explore different parts of the dataset.
+
+The dashboard also includes summary metrics showing the number of quotes, number of authors, average word count, and average number of tags. Below that, users can preview the cleaned data in a table.
+
+The first visualization shows the top authors by quote count. This helps identify which authors appear most often in the scraped dataset. The second visualization is a histogram showing the distribution of quote word counts, which helps show whether most quotes are short, medium, or long. The third visualization shows the average word count by quote length group. I also included a fourth chart showing quotes collected by page.
+
+My main conclusions are: first, some authors appear more often than others, so the dataset is not evenly distributed by author. Second, quote length varies across the dataset, and using word count helps make that pattern easier to understand. Third, extracted features like tag count and length group help turn scraped text into useful data for analysis.
+
+Overall, this project helped me practice the full data workflow. I collected web data with Selenium, saved raw files, cleaned and transformed the data with Pandas, and created an interactive dashboard with Streamlit and Plotly. Thank you for watching my presentation.
