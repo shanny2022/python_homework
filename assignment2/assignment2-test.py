@@ -1,4 +1,4 @@
-import assignment2 as a2
+import assignment2.assignment2 as a2
 import os
 
 def test_read_employees():
@@ -45,7 +45,7 @@ def test_get_this_value():
     assert a2.get_this_value() == "ABC"
 
 def test_set_that_secret():
-    import custom_module
+    import assignment2.custom_module as custom_module
     a2.set_that_secret("swordfish")
     assert custom_module.secret == "swordfish"
 

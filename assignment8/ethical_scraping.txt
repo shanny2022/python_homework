@@ -1,0 +1,15 @@
+Task 5: Ethical Web Scraping
+
+Wikipedia robots.txt reviewed: https://en.wikipedia.org/robots.txt
+
+Which sections of the website are restricted for crawling?
+Wikipedia restricts several crawler paths for the general user agent, including /w/, /api/, /trap/, and Special pages such as /wiki/Special:, /wiki/Spezial:, and /wiki/Spesial:. It also restricts many language-specific administrative, deletion, spam, user, and search-related pages.
+
+Are there specific rules for certain user agents?
+Yes. Several specific user agents have their own rules. For example, MJ12bot, Mediapartners-Google*, UbiCrawler, DOC, Zao, WebStripper, WebCopier, wget, and other bots have targeted Disallow rules. SemrushBot is given a crawl delay of 5 seconds.
+
+Reflection:
+Websites use robots.txt to tell crawlers which areas should not be requested and, sometimes, how slowly requests should be made. Checking this file before scraping helps avoid private, expensive, or unwanted areas of a site and reduces the risk of causing server load problems. Ethical scraping means respecting these rules, using delays, and collecting only the data needed for the project.
+
+Durham County Library robots.txt note:
+I checked https://durhamcountylibrary.org/robots.txt for this assignment. The requested scrape uses one search results page from the public Durham County Library catalog and the script uses one page load with a clear user agent instead of repeated rapid requests.
