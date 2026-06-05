@@ -1,0 +1,23 @@
+Assignment 11 Reflection
+
+1. Differences between static and interactive visualizations
+
+Static visualizations are useful when I want to present one clear message. A static chart, like a Matplotlib bar chart or line chart, is simple to include in a report because the viewer sees the exact same chart every time. The limitation is that the viewer cannot click, zoom, filter, or explore the data further.
+
+Interactive visualizations are better when the audience needs to explore the data on their own. With Plotly, Dash, or Streamlit, users can hover over points, zoom in, compare groups, and sometimes filter the view. This makes the visualization feel more flexible and useful, especially when there are many categories or data points.
+
+2. Advantages of dashboards for real-time data exploration
+
+Dashboards are helpful because they bring data, filters, metrics, and charts together in one place. Instead of reading through a CSV file or running several scripts, a user can open the dashboard and quickly understand what is happening. Dashboards also make it easier to explore different questions because users can change filters and immediately see updated results.
+
+For real-time or frequently changing data, a dashboard is especially valuable. It can help teams monitor trends, notice problems faster, and make decisions based on the most current information. A dashboard also makes the data more accessible to people who may not know Python or SQL.
+
+3. How Plotly helps communication in professional settings
+
+Plotly helps communicate data professionally because it creates clean, interactive charts that are easy to share. In this assignment, saving the wind visualization as wind.html made the chart portable because someone else can open it in a browser and interact with it without needing to edit the code.
+
+Plotly also helps because hover labels, legends, colors, and titles make the data easier to understand. In a professional setting, this matters because the goal is not only to create a chart, but to help other people understand the story behind the data. Interactive Plotly charts can make presentations, dashboards, and reports more engaging and easier to explain.
+
+4. What I learned from this assignment
+
+This assignment helped me understand how Python, SQL, Pandas, Matplotlib, Plotly, and Streamlit can work together. I practiced connecting to a database, loading SQL query results into Pandas DataFrames, creating cumulative calculations, and building both static and interactive visualizations. The biggest lesson for me was that the right visualization depends on the audience and the purpose. Static charts are good for direct reporting, while interactive dashboards and Plotly charts are better for exploration and communication.

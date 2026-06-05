@@ -1,10 +1,10 @@
-import assignment4 as a4
+import assignment4.assignment4 as a4
 import numpy as np
 import pandas as pd
 import os
 
-test1_df = pd.DataFrame({   'Name': ['Alice', 'Bob', 'Charlie'], 
-                            'Age': [25, 30, 35], 
+test1_df = pd.DataFrame({   'Name': ['Alice', 'Bob', 'Charlie'],
+                            'Age': [25, 30, 35],
                             'City': ['New York', 'Los Angeles', 'Chicago']})
 
 # Task 1
@@ -21,7 +21,7 @@ def test_write_csv():
     assert os.access("./employees.csv", os.F_OK) == True
     # make sure there is no index
     assert pd.read_csv('employees.csv').shape == (3, 4)
-    
+
 
 
 # Task 2
@@ -56,7 +56,7 @@ def test_shape():
 # Task 4
 from io import StringIO
 sample_data = """Name,Age,Salary,Hire Date,Department
-Alice, 29,50000,2021/01/15, Sales 
+Alice, 29,50000,2021/01/15, Sales
 Bob, 32, unknown,2020-03-18,MARKETING
  charlie, NaN, 70000,3/25/2019,marketinG
 Dana, 41, n/a,2020/12/01, HR
@@ -91,7 +91,7 @@ def test_salary_numeric():
     assert pd.api.types.is_numeric_dtype(a4.clean_data['Salary'])
 
 def test_no_missing_age_or_salary():
-    assert not a4.clean_data['Age'].isnull().any() 
+    assert not a4.clean_data['Age'].isnull().any()
     assert not a4.clean_data['Salary'].isnull().any()
 
 def test_hire_date_datetime():
@@ -108,26 +108,3 @@ def test_department_uppercase():
 def test_hire_date_notNAT():
     nat_count = a4.clean_data['Hire Date'].isna().sum()
     assert nat_count == 0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

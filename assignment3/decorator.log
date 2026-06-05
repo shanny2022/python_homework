@@ -1,0 +1,12 @@
+function: say_hello
+positional parameters: none
+keyword parameters: none
+return: None
+function: always_true
+positional parameters: [1, 'abc', 3.14]
+keyword parameters: none
+return: True
+function: return_decorator
+positional parameters: none
+keyword parameters: {'first': 'alpha', 'second': 2, 'third': True}
+return: <function logger_decorator at 0x10602eb90>
