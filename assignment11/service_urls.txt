@@ -4,10 +4,12 @@ GitHub repository:
 https://github.com/shanny2022/python_homework
 
 Pull request:
-To be added after the PR is created.
+https://github.com/shanny2022/python_homework/pull/23
 
 Streamlit dashboard:
-Run locally with: streamlit run python-assignment11/dashboard.py
+Run locally with: streamlit run assignment11/dashboard.py
+Deployment URL:
+To be added after the Streamlit app is deployed.
 
 Plotly wind chart:
-Open python-assignment11/wind.html after running: python python-assignment11/wind.py
+Open assignment11/wind.html after running: python assignment11/wind.py
