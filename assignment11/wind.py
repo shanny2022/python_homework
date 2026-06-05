@@ -1,76 +1,74 @@
-"""Create an interactive wind-speed chart as wind.html.
+"""Assignment 11 Task 3: Plotly wind dataset visualization.
 
-Run with:
+This script loads Plotly's built-in wind dataset, prints the first and last
+10 rows, cleans the strength column into a numeric value, and saves an
+interactive scatter plot as wind.html.
+
+Run from the assignment11 folder:
     python wind.py
 """
 
-from __future__ import annotations
-
 from pathlib import Path
 
-
-WIND_DATA = [
-    {"month": "Jan", "speed_mph": 11.2, "gust_mph": 22.5},
-    {"month": "Feb", "speed_mph": 12.8, "gust_mph": 25.1},
-    {"month": "Mar", "speed_mph": 14.3, "gust_mph": 29.4},
-    {"month": "Apr", "speed_mph": 13.6, "gust_mph": 27.2},
-    {"month": "May", "speed_mph": 10.9, "gust_mph": 20.8},
-    {"month": "Jun", "speed_mph": 9.7, "gust_mph": 18.4},
-    {"month": "Jul", "speed_mph": 8.5, "gust_mph": 16.9},
-    {"month": "Aug", "speed_mph": 8.9, "gust_mph": 17.5},
-    {"month": "Sep", "speed_mph": 10.4, "gust_mph": 21.0},
-    {"month": "Oct", "speed_mph": 11.7, "gust_mph": 23.6},
-    {"month": "Nov", "speed_mph": 12.1, "gust_mph": 24.3},
-    {"month": "Dec", "speed_mph": 11.5, "gust_mph": 22.9},
-]
+import pandas as pd
+import plotly.data as pl
+import plotly.express as px
 
 
-def build_chart(output_path: Path) -> None:
-    """Build the Plotly chart and save it as an HTML file."""
-    try:
-        import plotly.graph_objects as go
-    except ImportError as exc:
-        raise SystemExit(
-            "Plotly is required for wind.py. Install it with: pip install plotly"
-        ) from exc
+OUTPUT_HTML = Path(__file__).resolve().parent / "wind.html"
 
-    months = [row["month"] for row in WIND_DATA]
-    speeds = [row["speed_mph"] for row in WIND_DATA]
-    gusts = [row["gust_mph"] for row in WIND_DATA]
 
-    figure = go.Figure()
-    figure.add_trace(
-        go.Scatter(
-            x=months,
-            y=speeds,
-            mode="lines+markers",
-            name="Average wind speed",
-            line={"color": "#1f77b4", "width": 3},
-        )
-    )
-    figure.add_trace(
-        go.Bar(
-            x=months,
-            y=gusts,
-            name="Peak gust",
-            marker_color="#ff7f0e",
-            opacity=0.55,
-        )
-    )
-    figure.update_layout(
-        title="Monthly Wind Speed and Peak Gusts",
-        xaxis_title="Month",
-        yaxis_title="Miles per hour",
-        template="plotly_white",
-        hovermode="x unified",
-    )
-    figure.write_html(output_path, include_plotlyjs="cdn")
+def clean_strength(value: str) -> float:
+    """Convert wind strength ranges like '0-1' or '6+' into numeric values."""
+    text = str(value).strip()
+
+    if "+" in text:
+        return float(text.replace("+", ""))
+
+    if "-" in text:
+        low, high = text.split("-", 1)
+        return (float(low) + float(high)) / 2
+
+    return float(text)
 
 
 def main() -> None:
-    output_path = Path(__file__).with_name("wind.html")
-    build_chart(output_path)
-    print(f"Created {output_path}")
+    wind_df = pl.wind()
+
+    print("First 10 rows of the Plotly wind dataset:")
+    print(wind_df.head(10))
+
+    print("\nLast 10 rows of the Plotly wind dataset:")
+    print(wind_df.tail(10))
+
+    wind_df = wind_df.copy()
+    wind_df["strength_clean"] = wind_df["strength"].apply(clean_strength)
+
+    print("\nCleaned wind strength values:")
+    print(wind_df[["strength", "strength_clean"]].drop_duplicates())
+
+    fig = px.scatter(
+        wind_df,
+        x="strength_clean",
+        y="frequency",
+        color="direction",
+        hover_data=["direction", "strength", "frequency"],
+        title="Wind Strength vs. Frequency by Direction",
+        labels={
+            "strength_clean": "Wind Strength (cleaned numeric value)",
+            "frequency": "Frequency",
+            "direction": "Wind Direction",
+        },
+    )
+
+    fig.update_layout(
+        xaxis_title="Wind Strength",
+        yaxis_title="Frequency",
+        legend_title="Direction",
+    )
+
+    fig.write_html(OUTPUT_HTML)
+    print(f"\nSaved interactive Plotly chart to {OUTPUT_HTML}")
 
 
 if __name__ == "__main__":

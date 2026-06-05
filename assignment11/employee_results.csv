@@ -1,6 +1,21 @@
-name,department,role,hourly_rate,hours_worked,gross_pay
-Aaliyah Johnson,Engineering,Backend Developer,44.5,41.5,1880.12
-Marcus Lee,Design,UX Designer,39.25,38,1491.5
-Priya Shah,Data,Data Analyst,42.0,45,1995.0
-Elena Garcia,Support,Customer Advocate,28.75,36.5,1049.38
-Jordan Smith,Engineering,QA Engineer,35.5,40,1420.0
+employee_id,first_name,last_name,total_revenue
+17,Logan,Lopez,5514.400000000001
+19,Matthew,Meyers,4718.47
+13,Gregory,Jackson,4484.27
+15,Sarah,Shepherd,4214.12
+11,Gregory,Pittman,4153.95
+14,David,Clark,4103.56
+9,Phillip,Williams,3883.45
+18,Donald,Hunt,3710.52
+16,Michael,Quinn,3676.27
+10,Kelli,Bowman,3494.37
+20,Thomas,Calderon,3451.63
+2,David,Thornton,3281.15
+3,Lauren,Martinez,3230.38
+7,Miranda,Harris,2989.78
+5,James,Torres,2927.6
+8,Destiny,Nguyen,2630.51
+6,Tracy,Foster,2390.34
+4,Kenneth,White,2280.42
+1,Cindy,Wade,1979.53
+12,Natasha,Hoover,1451.3400000000001
