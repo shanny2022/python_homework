@@ -1,0 +1,13 @@
+Assignment 11 Service URLs
+
+GitHub repository:
+https://github.com/shanny2022/python_homework
+
+Pull request:
+To be added after the PR is created.
+
+Streamlit dashboard:
+Run locally with: streamlit run python-assignment11/dashboard.py
+
+Plotly wind chart:
+Open python-assignment11/wind.html after running: python python-assignment11/wind.py

@@ -1,0 +1,7 @@
+Assignment 11 Reflection
+
+For this assignment, I practiced turning Python scripts into a small project that can be shared and reviewed. The employee_results.py file helped me organize data with a dataclass, calculate payroll totals, and write the results to a CSV. The cumulative.py file reinforced how a running total works and how to format output clearly for a user.
+
+The wind.py file gave me more practice with Plotly and HTML output. I like that the chart can be opened in a browser and explored without needing to run a separate web app. The Streamlit dashboard connects the capstone idea to an interactive tool by showing payroll, hours, overtime, and department filtering in one place.
+
+One challenge was making the project easy to run without depending on extra hidden files. I solved that by keeping small sample datasets directly in the scripts. If I continued improving this project, I would connect the dashboard to a real CSV or database, add authentication, and deploy the dashboard to Streamlit Community Cloud.
