@@ -1,0 +1,18 @@
+Assignment 11 Service URLs
+
+GitHub repository URL:
+https://github.com/shanny2022/python_homework
+
+Pull request URL for assignment11 branch:
+PASTE YOUR PULL REQUEST URL HERE AFTER YOU CREATE THE PR
+Example format: https://github.com/shanny2022/python_homework/pull/1
+
+Published Streamlit Community Cloud app URL:
+PASTE YOUR STREAMLIT APP URL HERE AFTER DEPLOYMENT
+Example format: https://your-app-name.streamlit.app/
+
+Notes:
+- Push the assignment11 branch to GitHub first.
+- Create a pull request from assignment11 into main.
+- Deploy dashboard.py on Streamlit Community Cloud.
+- Replace the placeholder lines above with the real PR and Streamlit URLs before submitting.
