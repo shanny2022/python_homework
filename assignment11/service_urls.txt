@@ -4,12 +4,10 @@ GitHub repository URL:
 https://github.com/shanny2022/python_homework
 
 Pull request URL for assignment11 branch:
-PASTE YOUR PULL REQUEST URL HERE AFTER YOU CREATE THE PR
-Example format: https://github.com/shanny2022/python_homework/pull/1
+https://github.com/shanny2022/python_homework/pull/24
 
 Published Streamlit Community Cloud app URL:
-PASTE YOUR STREAMLIT APP URL HERE AFTER DEPLOYMENT
-Example format: https://your-app-name.streamlit.app/
+https://shanny2022-python-homework-assignment11dashboard-assignm-k6wzw2.streamlit.app
 
 Notes:
 - Push the assignment11 branch to GitHub first.
