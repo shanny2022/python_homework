@@ -1,8 +1,13 @@
 pytest==8.1.1
 pandas==2.2.3
+<<<<<<< HEAD
 matplotlib>=3.9.0
 plotly>=5.24.1
 streamlit>=1.36.0
+=======
+plotly>=5.24.1
+streamlit>=1.58.0
+>>>>>>> c6d439aa2654e712c952e19501ef5dccf874b7e3
 selenium
 webdriver-manager
 sqlalchemy==2.0.36
