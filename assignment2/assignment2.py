@@ -1,11 +1,20 @@
 import csv
 import os
 import traceback
-import custom_module
 from datetime import datetime
 
-def print_exception(e):
-    trace_back = traceback.extract_tb(e.__traceback__)
+try:
+    import custom_module
+except ModuleNotFoundError:
+    from . import custom_module
+
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CSV_DIR = os.path.join(BASE_DIR, "..", "csv")
+
+
+def print_exception(exception):
+    trace_back = traceback.extract_tb(exception.__traceback__)
     stack_trace = []
 
     for trace in trace_back:
@@ -16,16 +25,17 @@ def print_exception(e):
             f"Message : {trace[3]}"
         )
 
-    print(f"Exception type: {type(e).__name__}")
+    print(f"Exception type: {type(exception).__name__}")
 
-    message = str(e)
+    message = str(exception)
 
     if message:
         print(f"Exception message: {message}")
 
     print(f"Stack trace: {stack_trace}")
 
-    # Task 2: Read employees.csv
+
+# Task 2: Read employees.csv
 
 def read_employees():
     employee_data = {
@@ -33,8 +43,10 @@ def read_employees():
         "rows": []
     }
 
+    employees_path = os.path.join(CSV_DIR, "employees.csv")
+
     try:
-        with open("../csv/employees.csv", "r") as file:
+        with open(employees_path, "r", newline="") as file:
             reader = csv.reader(file)
 
             for index, row in enumerate(reader):
@@ -43,14 +55,14 @@ def read_employees():
                 else:
                     employee_data["rows"].append(row)
 
-    except Exception as e:
-        print_exception(e)
+    except Exception as exception:
+        print_exception(exception)
+        raise
 
     return employee_data
 
 
 employees = read_employees()
-print(employees)
 
 
 # Task 3: Find a column index
@@ -61,11 +73,13 @@ def column_index(column_name):
 
 employee_id_column = column_index("employee_id")
 
-# Task 4: Find an employee first name
+
+# Task 4: Find an employee's first name
 
 def first_name(row_number):
     first_name_column = column_index("first_name")
     return employees["rows"][row_number][first_name_column]
+
 
 # Task 5: Find an employee using an inner function
 
@@ -79,6 +93,7 @@ def employee_find(employee_id):
 
     return matches
 
+
 # Task 6: Find an employee using a lambda
 
 def employee_find_2(employee_id):
@@ -90,6 +105,7 @@ def employee_find_2(employee_id):
     )
 
     return matches
+
 
 # Task 7: Sort employees by last name
 
@@ -103,10 +119,7 @@ def sort_by_last_name():
     return employees["rows"]
 
 
-sort_by_last_name()
-print(employees)
-
-# Task 8: Create an employee dictionary
+# Task 8: Create a dictionary for one employee
 
 def employee_dict(row):
     result = {}
@@ -118,9 +131,7 @@ def employee_dict(row):
     return result
 
 
-print(employee_dict(employees["rows"][0]))
-
-# Task 9: Create a dictionary of all employees
+# Task 9: Create a dictionary containing all employees
 
 def all_employees_dict():
     all_employees = {}
@@ -132,12 +143,11 @@ def all_employees_dict():
     return all_employees
 
 
-print(all_employees_dict())
-
 # Task 10: Read an environment variable
 
 def get_this_value():
     return os.getenv("THISVALUE")
+
 
 # Task 11: Use a custom module
 
@@ -145,10 +155,7 @@ def set_that_secret(new_secret):
     custom_module.set_secret(new_secret)
 
 
-set_that_secret("python is powerful")
-print(custom_module.secret)
-
-# Task 12: Read minutes CSV files
+# Task 12: Read minutes1.csv and minutes2.csv
 
 def read_minutes_file(file_path):
     minutes_data = {
@@ -157,7 +164,7 @@ def read_minutes_file(file_path):
     }
 
     try:
-        with open(file_path, "r") as file:
+        with open(file_path, "r", newline="") as file:
             reader = csv.reader(file)
 
             for index, row in enumerate(reader):
@@ -166,25 +173,27 @@ def read_minutes_file(file_path):
                 else:
                     minutes_data["rows"].append(tuple(row))
 
-    except Exception as e:
-        print_exception(e)
+    except Exception as exception:
+        print_exception(exception)
+        raise
 
     return minutes_data
 
 
 def read_minutes():
-    minutes1_data = read_minutes_file("../csv/minutes1.csv")
-    minutes2_data = read_minutes_file("../csv/minutes2.csv")
+    minutes1_path = os.path.join(CSV_DIR, "minutes1.csv")
+    minutes2_path = os.path.join(CSV_DIR, "minutes2.csv")
+
+    minutes1_data = read_minutes_file(minutes1_path)
+    minutes2_data = read_minutes_file(minutes2_path)
 
     return minutes1_data, minutes2_data
 
 
 minutes1, minutes2 = read_minutes()
 
-print(minutes1)
-print(minutes2)
 
-# Task 13: Create a set of unique minutes
+# Task 13: Create one set of unique minutes
 
 def create_minutes_set():
     minutes1_set = set(minutes1["rows"])
@@ -194,9 +203,9 @@ def create_minutes_set():
 
 
 minutes_set = create_minutes_set()
-print(minutes_set)
 
-# Task 14: Convert dates to datetime objects
+
+# Task 14: Convert date strings to datetime objects
 
 def create_minutes_list():
     minutes_rows = list(minutes_set)
@@ -215,9 +224,9 @@ def create_minutes_list():
 
 
 minutes_list = create_minutes_list()
-print(minutes_list)
 
-# Task 15: Write the sorted minutes list
+
+# Task 15: Sort and write minutes.csv
 
 def write_sorted_list():
     minutes_list.sort(key=lambda row: row[1])
@@ -232,13 +241,32 @@ def write_sorted_list():
         )
     )
 
-    with open("minutes.csv", "w", newline="") as file:
-        writer = csv.writer(file)
+    minutes_output_path = os.path.join(BASE_DIR, "minutes.csv")
 
-        writer.writerow(minutes1["fields"])
-        writer.writerows(converted_list)
+    try:
+        with open(minutes_output_path, "w", newline="") as file:
+            writer = csv.writer(file)
+
+            writer.writerow(minutes1["fields"])
+            writer.writerows(converted_list)
+
+    except Exception as exception:
+        print_exception(exception)
+        raise
 
     return converted_list
 
 
-print(write_sorted_list())
+if __name__ == "__main__":
+    sort_by_last_name()
+    set_that_secret("python is powerful")
+
+    print(employees)
+    print(employee_dict(employees["rows"][0]))
+    print(all_employees_dict())
+    print(custom_module.secret)
+    print(minutes1)
+    print(minutes2)
+    print(minutes_set)
+    print(minutes_list)
+    print(write_sorted_list())
