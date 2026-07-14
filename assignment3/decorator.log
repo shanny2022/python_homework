@@ -1,0 +1,60 @@
+function: say_hello
+positional parameters: none
+keyword parameters: none
+return: None
+function: positional_function
+positional parameters: [1, 2, 3, 'Python']
+keyword parameters: none
+return: True
+function: keyword_function
+positional parameters: none
+keyword parameters: {'name': 'Shuntoria', 'course': 'Python'}
+return: <function logger_decorator at 0x105332090>
+function: say_hello
+positional parameters: none
+keyword parameters: none
+return: None
+function: positional_function
+positional parameters: [1, 2, 3, 'Python']
+keyword parameters: none
+return: True
+function: keyword_function
+positional parameters: none
+keyword parameters: {'name': 'Shuntoria', 'course': 'Python'}
+return: <function logger_decorator at 0x1057f6090>
+function: say_hello
+positional parameters: none
+keyword parameters: none
+return: None
+function: positional_function
+positional parameters: [1, 2, 3, 'Python']
+keyword parameters: none
+return: True
+function: keyword_function
+positional parameters: none
+keyword parameters: {'name': 'Shuntoria', 'course': 'Python'}
+return: <function logger_decorator at 0x10607e090>
+function: say_hello
+positional parameters: none
+keyword parameters: none
+return: None
+function: positional_function
+positional parameters: [1, 2, 3, 'Python']
+keyword parameters: none
+return: True
+function: keyword_function
+positional parameters: none
+keyword parameters: {'name': 'Shuntoria', 'course': 'Python'}
+return: <function logger_decorator at 0x105e02090>
+function: say_hello
+positional parameters: none
+keyword parameters: none
+return: None
+function: positional_function
+positional parameters: [1, 2, 3, 'Python']
+keyword parameters: none
+return: True
+function: keyword_function
+positional parameters: none
+keyword parameters: {'name': 'Shuntoria', 'course': 'Python'}
+return: <function logger_decorator at 0x10529a090>
