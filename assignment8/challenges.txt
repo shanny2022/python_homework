@@ -1,7 +1,0 @@
-Assignment 8 Challenges
-
-A major challenge in web scraping is that website HTML and class names can change. I addressed this by using multiple fallback CSS selectors and XPath patterns instead of depending on only one exact class.
-
-Another challenge is dynamically loaded content. Selenium allows JavaScript to run, and the scraper waits briefly before extracting results.
-
-I also handled cleanup with a finally block so the browser always closes. Before running either scraper, the current robots.txt for the target website should be reviewed.
