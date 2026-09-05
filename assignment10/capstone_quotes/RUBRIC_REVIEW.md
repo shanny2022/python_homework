@@ -22,7 +22,7 @@ wind HTML hover/zoom checks still need a browser/desktop verification pass.
 | Layout and guidance | Columns, sidebar, titles, descriptions, empty-state guidance, and dataset limitations implemented; visual browser pass pending. |
 | Reproducible setup | All direct dependencies pinned in requirements.txt; Python 3.13. |
 | README screenshot | Still missing a real dashboard screenshot. |
-| Public deployment | Not yet deployed or publicly verified; root service_urls.txt states pending status. |
+| Public deployment | User supplied https://9ffs4bon8dnideqn8co3mc.streamlit.app/; recorded in service_urls.txt. Public browser verification remains pending. |
 
 ## Kaggle notebook
 

@@ -169,8 +169,9 @@ a saved collection of 12 supplied records, not a live weather or payroll feed.
 
 For Streamlit Community Cloud, select repository `shanny2022/python_homework`,
 branch `assignment11-capstone`, file `assignment10/capstone_quotes/app.py`, and
-Python 3.13. Dependencies are pinned beside the app. Deployment and public URL
-verification are pending; record the resulting URL in root `service_urls.txt`.
+Python 3.13. Dependencies are pinned beside the app. Deployment URL: https://9ffs4bon8dnideqn8co3mc.streamlit.app/
+The user supplied this URL; public browser verification remains pending.
+The link is recorded in root `service_urls.txt`.
 Two Streamlit AppTest tests passed, covering the three filters, metrics, charts,
 and empty results.
 
