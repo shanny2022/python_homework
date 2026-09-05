@@ -22,11 +22,11 @@ The project demonstrates:
 
 - `scraper.py` — Scrapes quote data using Selenium
 - `clean_data.py` — Cleans and transforms raw scraped data
-- `app.py` — Streamlit dashboard with interactive filters and charts
+- `app.py` — SQLite-backed Streamlit dashboard with interactive filters and charts
 - `requirements.txt` — Python dependencies
 - `data/raw/quotes_raw.csv` — Raw scraped CSV output
 - `data/raw/quotes_raw.json` — Raw scraped JSON output
-- `data/cleaned/quotes_clean.csv` — Cleaned dataset used by the dashboard
+- `data/cleaned/quotes_clean.csv` — Reproducible cleaned CSV export
 
 ## Setup Instructions
 
@@ -42,10 +42,10 @@ pip install -r requirements.txt
 python scraper.py
 ```
 
-3. Clean the data:
+3. Clean the data and build the database:
 
 ```bash
-python clean_data.py
+python capstone_database.py
 ```
 
 4. Run the dashboard:
@@ -59,7 +59,7 @@ streamlit run app.py
 The dashboard allows users to:
 
 - Filter by author
-- Filter by quote length group
+- Filter by tag
 - Filter by word count range
 - View summary metrics
 - View cleaned data
@@ -70,7 +70,6 @@ The dashboard allows users to:
 1. Top authors by quote count
 2. Quote word count distribution
 3. Average word count by quote length group
-4. Quotes collected by page
 
 ## Data Cleaning and Transformation
 
@@ -87,15 +86,16 @@ The cleaning process includes:
   - `has_multiple_tags`
   - `quote_length_group`
 
-## Screenshot
+## Screenshots
 
-Add a screenshot of your Streamlit dashboard here before submitting.
+Screenshots supplied by the user from the deployed app on September 5, 2026.
+The overview shows 12 quotes, 9 authors, and an average of 15.8 words.
 
-Example:
+![Quote Explorer overview with filters, metrics, author chart, and length histogram](images/dashboard_overview.png)
 
-```markdown
-![Dashboard Screenshot](images/dashboard_screenshot.png)
-```
+![Average words by length group and selection insights](images/dashboard_chart.png)
+
+![Quote table and filtered CSV download](images/dashboard_table.png)
 
 ## Project Reflection
 
@@ -151,6 +151,39 @@ PRAGMA integrity_check;
 
 Validation: three automated tests passed for the supplied data and repeat runs,
 missing/malformed/duplicate fixture records, recomputed features, and database
-preservation when an import fails. The Streamlit dashboard still reads the
-regenerated clean CSV; running or deploying the dashboard is separate from this
-database update.
+preservation when an import fails. Assignment 11 updates the Streamlit dashboard to read `quotes_clean` directly
+from the SQLite database in read-only mode.
+
+
+## Assignment 11 Task 6 — database-backed dashboard
+
+Run from the homework repository root:
+
+```sh
+pip install -r assignment10/capstone_quotes/requirements.txt
+streamlit run assignment10/capstone_quotes/app.py
+python -m unittest discover -s assignment10/capstone_quotes -p test_dashboard.py -v
+```
+
+The app reads the included SQLite database and displays three Plotly charts:
+quotes per author, a word-count histogram, and average words by length group.
+All charts, metrics, insights, table rows, and CSV downloads respond to author,
+tag, and word-count filters. Empty selections display guidance. The dataset is
+a saved collection of 12 supplied records, not a live weather or payroll feed.
+
+For Streamlit Community Cloud, select repository `shanny2022/python_homework`,
+branch `assignment11-capstone`, file `assignment10/capstone_quotes/app.py`, and
+Python 3.13. Dependencies are pinned beside the app. Deployment URL: https://pythonhomework-xvaggbmkepo3ciy3pjkymj.streamlit.app/
+User-supplied screenshots confirm rendering at this URL. Independent
+signed-out access and live browser interaction checks remain pending.
+The link is recorded in root `service_urls.txt`.
+Two Streamlit AppTest tests passed, covering the three filters, metrics, charts,
+and empty results.
+
+## Final rubric audit
+
+See [RUBRIC_REVIEW.md](RUBRIC_REVIEW.md) for evidence and outstanding checks.
+The Pandas 3 malformed-input regression has been fixed. Scraper checks cover
+blank author fallback, empty-output preservation, and browser cleanup on timeout;
+pagination now waits for the previous page to unload. These are offline tests,
+not a claim that a live scraping run was verified.

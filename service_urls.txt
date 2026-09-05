@@ -1,0 +1,14 @@
+Capstone repository: https://github.com/shanny2022/python_homework
+Capstone pull request: https://github.com/shanny2022/python_homework/pull/8
+Streamlit Community Cloud app URL: https://pythonhomework-xvaggbmkepo3ciy3pjkymj.streamlit.app/
+
+Deployment configuration:
+Repository: shanny2022/python_homework
+Branch: assignment11-capstone
+Main file: assignment10/capstone_quotes/app.py
+Python: 3.13
+
+Local command: streamlit run assignment10/capstone_quotes/app.py
+Local testing passed. Deployment URL supplied by the user.
+User-supplied screenshots confirm deployed rendering.
+Independent signed-out access and live interaction checks remain pending.

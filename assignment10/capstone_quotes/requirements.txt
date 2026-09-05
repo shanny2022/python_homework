@@ -1,5 +1,5 @@
-selenium
-webdriver-manager
-pandas
-streamlit
-plotly
+pandas==3.0.5
+plotly==7.0.0
+streamlit==1.63.0
+selenium==4.48.0
+webdriver-manager==4.1.2

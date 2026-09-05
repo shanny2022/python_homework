@@ -24,7 +24,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
 BASE_URL = "https://quotes.toscrape.com/js/"
-RAW_DIR = Path("data/raw")
+RAW_DIR = Path(__file__).resolve().parent / "data/raw"
 RAW_JSON = RAW_DIR / "quotes_raw.json"
 RAW_CSV = RAW_DIR / "quotes_raw.csv"
 
@@ -52,7 +52,7 @@ def build_driver(headless: bool = True) -> webdriver.Chrome:
 def safe_text(parent, selector: str, default: str = "") -> str:
     """Safely extract text from an element. Handles missing tags."""
     try:
-        return parent.find_element(By.CSS_SELECTOR, selector).text.strip()
+        return parent.find_element(By.CSS_SELECTOR, selector).text.strip() or default
     except NoSuchElementException:
         return default
 
@@ -72,13 +72,14 @@ def scrape_quotes(max_pages: int | None = None, delay: float = 1.0) -> List[Dict
             try:
                 wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".quote")))
             except TimeoutException:
-                print("No quotes found or page timed out.")
-                break
+                raise RuntimeError(f"Quotes did not load on page {page_number}; existing outputs are preserved.")
 
             quote_cards = driver.find_elements(By.CSS_SELECTOR, ".quote")
 
             for card in quote_cards:
                 text = safe_text(card, ".text")
+                if not text:
+                    continue
                 author = safe_text(card, ".author", "Unknown")
                 tag_elements = card.find_elements(By.CSS_SELECTOR, ".tags .tag")
                 tags = [tag.text.strip() for tag in tag_elements if tag.text.strip()]
@@ -107,7 +108,10 @@ def scrape_quotes(max_pages: int | None = None, delay: float = 1.0) -> List[Dict
             # Pagination handling: click Next if it exists; stop if it does not.
             try:
                 next_button = driver.find_element(By.CSS_SELECTOR, "li.next a")
+                first_card = quote_cards[0]
                 next_button.click()
+                # Do not read the previous page again while JavaScript loads.
+                wait.until(EC.staleness_of(first_card))
                 page_number += 1
                 time.sleep(delay)  # polite delay to avoid redundant rapid requests
             except NoSuchElementException:
@@ -121,6 +125,8 @@ def scrape_quotes(max_pages: int | None = None, delay: float = 1.0) -> List[Dict
 
 def save_outputs(records: List[Dict[str, str]]) -> None:
     """Save raw scraped data to JSON and CSV."""
+    if not records:
+        raise ValueError("No quotes collected; existing raw files are preserved.")
     RAW_DIR.mkdir(parents=True, exist_ok=True)
 
     with RAW_JSON.open("w", encoding="utf-8") as f:
