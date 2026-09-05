@@ -86,15 +86,16 @@ The cleaning process includes:
   - `has_multiple_tags`
   - `quote_length_group`
 
-## Screenshot
+## Screenshots
 
-User-supplied screenshots from September 5, 2026 confirm that the deployed app
-renders all three charts, sidebar filters, the quote table, and CSV download.
+Screenshots supplied by the user from the deployed app on September 5, 2026.
 The overview shows 12 quotes, 9 authors, and an average of 15.8 words.
 
-Embedding the screenshots is still pending: the images were visible in the
-conversation but their listed local files were unavailable for copying. Save
-the overview to `images/dashboard_screenshot.png` and embed it here when available.
+![Quote Explorer overview with filters, metrics, author chart, and length histogram](images/dashboard_overview.png)
+
+![Average words by length group and selection insights](images/dashboard_chart.png)
+
+![Quote table and filtered CSV download](images/dashboard_table.png)
 
 ## Project Reflection
 

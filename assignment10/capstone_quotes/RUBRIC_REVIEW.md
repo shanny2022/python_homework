@@ -21,7 +21,7 @@ wind HTML hover/zoom checks still need a browser/desktop verification pass.
 | Responsive filters | Streamlit tests cover author, tag, word count, and empty selections. |
 | Layout and guidance | Columns, sidebar, titles, descriptions, empty-state guidance, and dataset limitations implemented; deployed rendering confirmed in user-supplied screenshots. |
 | Reproducible setup | All direct dependencies pinned in requirements.txt; Python 3.13. |
-| README screenshot | User supplied real screenshots; embedding is pending because listed image files were unavailable on disk. |
+| README screenshot | Three user-supplied screenshots of the deployed dashboard are embedded in README.md. |
 | Public deployment | User supplied https://pythonhomework-xvaggbmkepo3ciy3pjkymj.streamlit.app/; recorded in service_urls.txt. User screenshots confirm deployed rendering. Independent signed-out access and live interaction checks remain pending. |
 
 ## Kaggle notebook
