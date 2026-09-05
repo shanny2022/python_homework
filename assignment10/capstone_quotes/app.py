@@ -1,125 +1,73 @@
-"""Streamlit dashboard for the Selenium scraping project."""
-
-from __future__ import annotations
-
+"""Assignment 11 Task 6: explore the cleaned quotes stored in SQLite."""
+from contextlib import closing
 from pathlib import Path
+import sqlite3
 
 import pandas as pd
 import plotly.express as px
 import streamlit as st
 
-DATA_PATH = Path("data/cleaned/quotes_clean.csv")
+DATABASE = Path(__file__).resolve().parent / "db/capstone_data.db"
 
-st.set_page_config(page_title="Quote Scraping Dashboard", layout="wide")
 
-st.title("Quote Scraping Dashboard")
-st.write(
-    "This dashboard displays quote data collected with Selenium from a JavaScript-rendered website. "
-    "Use the filters to explore authors, tags, quote length, and page-level patterns."
-)
+def load_data():
+    with closing(sqlite3.connect(f"{DATABASE.as_uri()}?mode=ro", uri=True)) as conn:
+        return pd.read_sql_query("SELECT * FROM quotes_clean", conn)
 
-@st.cache_data
-def load_data() -> pd.DataFrame:
-    if not DATA_PATH.exists():
-        st.error("Cleaned data file not found. Run `python scraper.py` then `python clean_data.py` first.")
+
+def main():
+    st.set_page_config(page_title="Quote Explorer", page_icon="📖", layout="wide")
+    st.title("Quote Explorer")
+    st.write("Explore authors, tags, and quote lengths. Use the sidebar filters to update every chart and the quote table.")
+    try:
+        df = load_data()
+    except (sqlite3.Error, pd.errors.DatabaseError) as error:
+        st.error(f"The quote database could not be loaded: {error}")
         st.stop()
-    return pd.read_csv(DATA_PATH)
+    if df.empty:
+        st.info("There are no quotes in this dataset yet.")
+        st.stop()
+    st.caption(f"Source: {len(df)} supplied quote records from the capstone archive. This is a saved snapshot, not a live feed.")
+    authors = sorted(df.author.dropna().unique())
+    selected = st.sidebar.multiselect("Authors", authors, default=authors)
+    tags = sorted({tag.strip() for value in df.tags.fillna("") for tag in value.split(",") if tag.strip()})
+    tag = st.sidebar.selectbox("Tag", ["All tags"] + tags)
+    low, high = int(df.word_count.min()), int(df.word_count.max())
+    bounds = st.sidebar.slider("Word count", low, high, (low, high)) if low < high else (low, high)
+    filtered = df[df.author.isin(selected) & df.word_count.between(*bounds)].copy()
+    if tag != "All tags":
+        mask = filtered.tags.fillna("").apply(lambda value: tag in [part.strip() for part in value.split(",")]).astype(bool)
+        filtered = filtered.loc[mask]
+    a, b, c = st.columns(3)
+    a.metric("Quotes", len(filtered))
+    b.metric("Authors", filtered.author.nunique())
+    c.metric("Average words", f"{filtered.word_count.mean():.1f}" if len(filtered) else "—")
+    if filtered.empty:
+        st.info("No quotes match these filters. Select an author or widen your filters.")
+        return
+
+    left, right = st.columns(2)
+    author_counts = filtered.groupby("author").size().reset_index(name="quote_count")
+    author_counts = author_counts.sort_values("quote_count", ascending=False)
+    with left:
+        st.plotly_chart(px.bar(author_counts, x="author", y="quote_count",
+            title="Quotes by author", labels={"author":"Author", "quote_count":"Quotes"}), width="stretch")
+    with right:
+        st.plotly_chart(px.histogram(filtered, x="word_count", nbins=10,
+            title="Distribution of quote lengths", labels={"word_count":"Words per quote"}), width="stretch")
+    lengths = filtered.groupby("quote_length_group", as_index=False).word_count.mean()
+    st.plotly_chart(px.bar(lengths, x="quote_length_group", y="word_count",
+        title="Average words by length group", category_orders={"quote_length_group":["Short","Medium","Long"]},
+        labels={"quote_length_group":"Length group", "word_count":"Average words"}), width="stretch")
+
+    st.subheader("What the selection shows")
+    top = author_counts.iloc[0]
+    st.write(f"{top['author']} is one of the most represented authors in this selection, with {int(top['quote_count'])} quote(s). Quote lengths range from {int(filtered.word_count.min())} to {int(filtered.word_count.max())} words.")
+    st.caption("These patterns describe this small supplied collection, not an author's popularity or complete body of work. Page numbers and attributions have not been independently verified.")
+    st.subheader("Explore the quotes")
+    st.dataframe(filtered[["quote","author","tags","word_count","quote_length_group"]], hide_index=True, width="stretch")
+    st.download_button("Download filtered quotes", filtered.to_csv(index=False), "filtered_quotes.csv", "text/csv")
 
 
-df = load_data()
-
-st.sidebar.header("Filters")
-author_options = sorted(df["author"].dropna().unique().tolist())
-selected_authors = st.sidebar.multiselect("Choose author(s)", author_options, default=author_options[:5])
-
-length_options = sorted(df["quote_length_group"].dropna().unique().tolist())
-selected_lengths = st.sidebar.multiselect("Choose quote length group(s)", length_options, default=length_options)
-
-min_words = int(df["word_count"].min())
-max_words = int(df["word_count"].max())
-word_range = st.sidebar.slider("Word count range", min_words, max_words, (min_words, max_words))
-
-filtered = df[
-    (df["author"].isin(selected_authors))
-    & (df["quote_length_group"].isin(selected_lengths))
-    & (df["word_count"].between(word_range[0], word_range[1]))
-]
-
-st.subheader("Dashboard Summary")
-col1, col2, col3, col4 = st.columns(4)
-col1.metric("Quotes", len(filtered))
-col2.metric("Authors", filtered["author"].nunique())
-col3.metric("Avg. Words", round(filtered["word_count"].mean(), 1) if len(filtered) else 0)
-col4.metric("Avg. Tags", round(filtered["tag_count"].mean(), 1) if len(filtered) else 0)
-
-st.subheader("Filtered Data Preview")
-st.dataframe(filtered, use_container_width=True)
-
-# Visualization 1
-st.subheader("Visualization 1: Top Authors by Quote Count")
-author_counts = (
-    filtered.groupby("author")
-    .size()
-    .reset_index(name="quote_count")
-    .sort_values("quote_count", ascending=False)
-    .head(10)
-)
-fig1 = px.bar(
-    author_counts,
-    x="author",
-    y="quote_count",
-    title="Top Authors by Number of Quotes",
-    labels={"author": "Author", "quote_count": "Quote Count"},
-)
-st.plotly_chart(fig1, use_container_width=True)
-
-# Visualization 2
-st.subheader("Visualization 2: Quote Length Distribution")
-fig2 = px.histogram(
-    filtered,
-    x="word_count",
-    nbins=15,
-    title="Distribution of Quote Word Counts",
-    labels={"word_count": "Word Count"},
-)
-st.plotly_chart(fig2, use_container_width=True)
-
-# Visualization 3
-st.subheader("Visualization 3: Average Word Count by Length Group")
-length_summary = (
-    filtered.groupby("quote_length_group", as_index=False)["word_count"]
-    .mean()
-    .sort_values("word_count")
-)
-fig3 = px.bar(
-    length_summary,
-    x="quote_length_group",
-    y="word_count",
-    title="Average Word Count by Quote Length Group",
-    labels={"quote_length_group": "Length Group", "word_count": "Average Word Count"},
-)
-st.plotly_chart(fig3, use_container_width=True)
-
-# Visualization 4
-st.subheader("Visualization 4: Quotes Collected by Page")
-page_counts = filtered.groupby("page").size().reset_index(name="quote_count")
-fig4 = px.line(
-    page_counts,
-    x="page",
-    y="quote_count",
-    markers=True,
-    title="Quotes Scraped by Page",
-    labels={"page": "Page Number", "quote_count": "Quote Count"},
-)
-st.plotly_chart(fig4, use_container_width=True)
-
-st.subheader("Key Insights")
-st.write(
-    "1. Some authors appear more often than others, which affects the distribution of the scraped dataset."
-)
-st.write(
-    "2. Quote length varies across the dataset, so grouping by word count helps make the text easier to compare."
-)
-st.write(
-    "3. Tags and length groups help transform raw scraped text into useful features for analysis."
-)
+if __name__ == "__main__":
+    main()

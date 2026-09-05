@@ -22,7 +22,7 @@ The project demonstrates:
 
 - `scraper.py` — Scrapes quote data using Selenium
 - `clean_data.py` — Cleans and transforms raw scraped data
-- `app.py` — Streamlit dashboard with interactive filters and charts
+- `app.py` — SQLite-backed Streamlit dashboard with interactive filters and charts
 - `requirements.txt` — Python dependencies
 - `data/raw/quotes_raw.csv` — Raw scraped CSV output
 - `data/raw/quotes_raw.json` — Raw scraped JSON output
@@ -151,6 +151,29 @@ PRAGMA integrity_check;
 
 Validation: three automated tests passed for the supplied data and repeat runs,
 missing/malformed/duplicate fixture records, recomputed features, and database
-preservation when an import fails. The Streamlit dashboard still reads the
-regenerated clean CSV; running or deploying the dashboard is separate from this
-database update.
+preservation when an import fails. Assignment 11 updates the Streamlit dashboard to read `quotes_clean` directly
+from the SQLite database in read-only mode.
+
+
+## Assignment 11 Task 6 — database-backed dashboard
+
+Run from the homework repository root:
+
+```sh
+pip install -r assignment10/capstone_quotes/requirements.txt
+streamlit run assignment10/capstone_quotes/app.py
+python -m unittest discover -s assignment10/capstone_quotes -p test_dashboard.py -v
+```
+
+The app reads the included SQLite database and displays three Plotly charts:
+quotes per author, a word-count histogram, and average words by length group.
+All charts, metrics, insights, table rows, and CSV downloads respond to author,
+tag, and word-count filters. Empty selections display guidance. The dataset is
+a saved collection of 12 supplied records, not a live weather or payroll feed.
+
+For Streamlit Community Cloud, select repository `shanny2022/python_homework`,
+branch `assignment11-capstone`, file `assignment10/capstone_quotes/app.py`, and
+Python 3.13. Dependencies are pinned beside the app. Deployment and public URL
+verification are pending; record the resulting URL in root `service_urls.txt`.
+Two Streamlit AppTest tests passed, covering the three filters, metrics, charts,
+and empty results.
