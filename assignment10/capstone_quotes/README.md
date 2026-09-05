@@ -42,10 +42,10 @@ pip install -r requirements.txt
 python scraper.py
 ```
 
-3. Clean the data:
+3. Clean the data and build the database:
 
 ```bash
-python clean_data.py
+python capstone_database.py
 ```
 
 4. Run the dashboard:
@@ -59,7 +59,7 @@ streamlit run app.py
 The dashboard allows users to:
 
 - Filter by author
-- Filter by quote length group
+- Filter by tag
 - Filter by word count range
 - View summary metrics
 - View cleaned data
