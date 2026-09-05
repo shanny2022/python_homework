@@ -88,10 +88,13 @@ The cleaning process includes:
 
 ## Screenshot
 
-Pending: capture the running dashboard and save it to
-`images/dashboard_screenshot.png`, then embed it here. A real UI screenshot
-could not be captured because browser control was unavailable; no mock screenshot
-has been substituted.
+User-supplied screenshots from September 5, 2026 confirm that the deployed app
+renders all three charts, sidebar filters, the quote table, and CSV download.
+The overview shows 12 quotes, 9 authors, and an average of 15.8 words.
+
+Embedding the screenshots is still pending: the images were visible in the
+conversation but their listed local files were unavailable for copying. Save
+the overview to `images/dashboard_screenshot.png` and embed it here when available.
 
 ## Project Reflection
 
@@ -170,7 +173,8 @@ a saved collection of 12 supplied records, not a live weather or payroll feed.
 For Streamlit Community Cloud, select repository `shanny2022/python_homework`,
 branch `assignment11-capstone`, file `assignment10/capstone_quotes/app.py`, and
 Python 3.13. Dependencies are pinned beside the app. Deployment URL: https://pythonhomework-xvaggbmkepo3ciy3pjkymj.streamlit.app/
-The user supplied this URL; public browser verification remains pending.
+User-supplied screenshots confirm rendering at this URL. Independent
+signed-out access and live browser interaction checks remain pending.
 The link is recorded in root `service_urls.txt`.
 Two Streamlit AppTest tests passed, covering the three filters, metrics, charts,
 and empty results.

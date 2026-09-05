@@ -10,4 +10,5 @@ Python: 3.13
 
 Local command: streamlit run assignment10/capstone_quotes/app.py
 Local testing passed. Deployment URL supplied by the user.
-Public browser rendering and interaction verification remain pending.
+User-supplied screenshots confirm deployed rendering.
+Independent signed-out access and live interaction checks remain pending.

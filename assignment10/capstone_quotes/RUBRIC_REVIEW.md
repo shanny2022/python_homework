@@ -19,10 +19,10 @@ wind HTML hover/zoom checks still need a browser/desktop verification pass.
 | SQLite persistence | Included database with 12 raw and 12 cleaned records; integrity and repeat-run checks pass. |
 | Three interactive visualizations | Author bar chart, length histogram, and average words by length group. |
 | Responsive filters | Streamlit tests cover author, tag, word count, and empty selections. |
-| Layout and guidance | Columns, sidebar, titles, descriptions, empty-state guidance, and dataset limitations implemented; visual browser pass pending. |
+| Layout and guidance | Columns, sidebar, titles, descriptions, empty-state guidance, and dataset limitations implemented; deployed rendering confirmed in user-supplied screenshots. |
 | Reproducible setup | All direct dependencies pinned in requirements.txt; Python 3.13. |
-| README screenshot | Still missing a real dashboard screenshot. |
-| Public deployment | User supplied https://pythonhomework-xvaggbmkepo3ciy3pjkymj.streamlit.app/; recorded in service_urls.txt. Public browser verification remains pending. |
+| README screenshot | User supplied real screenshots; embedding is pending because listed image files were unavailable on disk. |
+| Public deployment | User supplied https://pythonhomework-xvaggbmkepo3ciy3pjkymj.streamlit.app/; recorded in service_urls.txt. User screenshots confirm deployed rendering. Independent signed-out access and live interaction checks remain pending. |
 
 ## Kaggle notebook
 
