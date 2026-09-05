@@ -26,7 +26,7 @@ The project demonstrates:
 - `requirements.txt` — Python dependencies
 - `data/raw/quotes_raw.csv` — Raw scraped CSV output
 - `data/raw/quotes_raw.json` — Raw scraped JSON output
-- `data/cleaned/quotes_clean.csv` — Cleaned dataset used by the dashboard
+- `data/cleaned/quotes_clean.csv` — Reproducible cleaned CSV export
 
 ## Setup Instructions
 
@@ -70,7 +70,6 @@ The dashboard allows users to:
 1. Top authors by quote count
 2. Quote word count distribution
 3. Average word count by quote length group
-4. Quotes collected by page
 
 ## Data Cleaning and Transformation
 
@@ -89,13 +88,10 @@ The cleaning process includes:
 
 ## Screenshot
 
-Add a screenshot of your Streamlit dashboard here before submitting.
-
-Example:
-
-```markdown
-![Dashboard Screenshot](images/dashboard_screenshot.png)
-```
+Pending: capture the running dashboard and save it to
+`images/dashboard_screenshot.png`, then embed it here. A real UI screenshot
+could not be captured because browser control was unavailable; no mock screenshot
+has been substituted.
 
 ## Project Reflection
 
@@ -177,3 +173,11 @@ Python 3.13. Dependencies are pinned beside the app. Deployment and public URL
 verification are pending; record the resulting URL in root `service_urls.txt`.
 Two Streamlit AppTest tests passed, covering the three filters, metrics, charts,
 and empty results.
+
+## Final rubric audit
+
+See [RUBRIC_REVIEW.md](RUBRIC_REVIEW.md) for evidence and outstanding checks.
+The Pandas 3 malformed-input regression has been fixed. Scraper checks cover
+blank author fallback, empty-output preservation, and browser cleanup on timeout;
+pagination now waits for the previous page to unload. These are offline tests,
+not a claim that a live scraping run was verified.

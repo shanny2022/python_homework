@@ -31,11 +31,11 @@ def clean_quotes() -> pd.DataFrame:
     df.loc[:, "author"] = df["author"].fillna("Unknown").astype(str).str.strip().replace("", "Unknown")
     df.loc[:, "tags"] = df["tags"].fillna("").astype(str).str.strip()
     # Recalculate tag counts from the actual tags, including malformed input counts.
-    df.loc[:, "tag_count"] = df["tags"].apply(
+    df = df.assign(tag_count=df["tags"].apply(
         lambda value: len([tag for tag in value.split(",") if tag.strip()])
-    )
+    ))
     pages = pd.to_numeric(df["page"], errors="coerce")
-    df.loc[:, "page"] = pages.where((pages > 0) & (pages % 1 == 0)).astype("Int64")
+    df = df.assign(page=pages.where((pages > 0) & (pages % 1 == 0)).astype("Int64"))
 
     # Remove empty quotes and duplicate records.
     df = df[df["quote"] != ""]
