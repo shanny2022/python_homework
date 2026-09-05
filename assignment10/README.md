@@ -24,5 +24,7 @@ items. After practicing, delete that order's line items before deleting the orde
 The SQL shell commits each statement; the Python script groups the inserts into
 one transaction.
 
-Task 5 belongs to the web scraping capstone project. Its source CSVs and project
-location are needed to implement and verify the cleaning and SQLite import there.
+Task 5 is completed in `capstone_quotes/` using the populated quotes project
+supplied separately. See its README for the cleaning pipeline, SQLite database,
+and tests. Run `python3 assignment10/capstone_quotes/capstone_database.py` from
+the repository root. The database contains 12 raw and 12 cleaned quote records.
