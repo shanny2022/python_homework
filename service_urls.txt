@@ -1,6 +1,6 @@
 Capstone repository: https://github.com/shanny2022/python_homework
 Capstone pull request: https://github.com/shanny2022/python_homework/pull/8
-Streamlit Community Cloud app URL: https://9ffs4bon8dnideqn8co3mc.streamlit.app/
+Streamlit Community Cloud app URL: https://pythonhomework-xvaggbmkepo3ciy3pjkymj.streamlit.app/
 
 Deployment configuration:
 Repository: shanny2022/python_homework
