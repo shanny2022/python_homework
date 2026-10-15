@@ -1,0 +1,7 @@
+Task 5 - Ethical Web Scraping
+
+Wikipedia's robots.txt contains restrictions for automated crawlers, including special/system-generated pages, search/action-oriented endpoints, and other areas that should not be repeatedly requested by bots. It also contains user-agent-specific rules, so the current robots.txt should always be checked before starting a scraper.
+
+Yes, there are rules that can apply differently to specific user agents. A scraper should follow the directives for its user agent as well as any general rules.
+
+Websites use robots.txt to communicate which areas automated crawlers should or should not access. Respecting it supports ethical scraping by reducing unnecessary server load and honoring the site's stated crawling preferences.
